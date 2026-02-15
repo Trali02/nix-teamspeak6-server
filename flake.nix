@@ -90,7 +90,7 @@
           default = true;
         };
 
-        acceptLicense = {
+        acceptLicense = lib.mkOption {
           type = lib.types.bool;
           default = false;
         };
