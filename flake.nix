@@ -2,7 +2,7 @@
   description = "TeamSpeak 6 Server flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
   };
 
   outputs = { self, nixpkgs }:
@@ -45,16 +45,9 @@
     nixosModules.default = { config, lib, pkgs, ... }:
 
     let
-      cfg = config.services.teamspeak6;
+      cfg = config.services.teamspeak6-server;
 
       package = self.packages.${pkgs.system}.teamspeak6-server;
-
-      configFile = pkgs.writeText "tsserver.ini" ''
-        default_voice_port=${toString cfg.voicePort}
-        filetransfer_port=${toString cfg.fileTransferPort}
-        query_port=${toString cfg.queryPort}
-        license_accepted=1
-      '';
     in
     {
       options.services.teamspeak6-server = {
@@ -70,6 +63,11 @@
           type = lib.types.str;
           default = "/var/lib/teamspeak6-server";
           description = "Persistent data directory.";
+        };
+
+        ip = lib.mkOption {
+          type = lib.types.ipv4;
+          default = 127.0.0.1;
         };
 
         voicePort = lib.mkOption {
@@ -91,6 +89,11 @@
           type = lib.types.bool;
           default = true;
         };
+
+        acceptLicense = {
+          type = lib.types.bool;
+          default = false;
+        };
       };
 
       config = lib.mkIf cfg.enable {
@@ -103,13 +106,22 @@
           wantedBy = [ "multi-user.target" ];
           after = [ "network.target" ];
 
+          environment = {
+            TSSERVER_LICENSE_ACCEPTED = (if cfg.acceptLicense then 1 else 0);
+            TSSERVER_DEFAULT_PORT = cfg.voicePort;
+            TSSERVER_DATABASE_SQL_PATH = "${cfg.package}/share/teamspeak6-server/sql";
+            TSSERVER_QUERY_HTTP_PORT = cfg.queryPort;
+            TSSERVER_FILE_TRANSFER_PORT = cfg.fileTransferPort;
+            TSSERVER_VOICE_IP = cfg.ip;
+          };
+
           serviceConfig = {
             ExecStart =
-              "${cfg.package}/bin/tsserver ini=${configFile}";
+              "${cfg.package}/bin/teamspeak6-server";
 
             WorkingDirectory = cfg.dataDir;
 
-            StateDirectory = "teamspeak6";
+            StateDirectory = "teamspeak6-server";
             DynamicUser = true;
 
             Restart = "always";
