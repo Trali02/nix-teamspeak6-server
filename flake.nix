@@ -107,11 +107,11 @@
           after = [ "network.target" ];
 
           environment = {
-            TSSERVER_LICENSE_ACCEPTED = (if cfg.acceptLicense then 1 else 0);
-            TSSERVER_DEFAULT_PORT = cfg.voicePort;
+            TSSERVER_LICENSE_ACCEPTED = builtins.toString cfg.acceptLicense;
+            TSSERVER_DEFAULT_PORT = builtins.toString cfg.voicePort;
             TSSERVER_DATABASE_SQL_PATH = "${cfg.package}/share/teamspeak6-server/sql";
-            TSSERVER_QUERY_HTTP_PORT = cfg.queryPort;
-            TSSERVER_FILE_TRANSFER_PORT = cfg.fileTransferPort;
+            TSSERVER_QUERY_HTTP_PORT = builtins.toString cfg.queryPort;
+            TSSERVER_FILE_TRANSFER_PORT = builtins.toString cfg.fileTransferPort;
             TSSERVER_VOICE_IP = cfg.ip;
           };
 
