@@ -1,0 +1,10 @@
+query_ip_allowlist.txt
+query_ip_denylist.txt
+tsserver.sqlitedb
+$/{XDG_DATA_HOME:-$HOME/.local/share}
+$HOME/.local/share/teamspeak6-server/tsserver.sqlitedb-shm
+$HOME/.local/share/teamspeak6-server/tsserver.sqlitedb-wal
+$HOME/.local/share/teamspeak6-server/logs/tsserver_2026-02-15__02_01_49.702105_0.log
+logs
+$/{XDG_DATA_HOME:-$HOME/.local/share}
+result
