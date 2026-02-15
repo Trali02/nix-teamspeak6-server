@@ -101,7 +101,7 @@
         ########################################
         # systemd Service
         ########################################
-        systemd.services.teamspeak6 = {
+        systemd.services.teamspeak6-server = {
           description = "TeamSpeak 6 Server";
           wantedBy = [ "multi-user.target" ];
           after = [ "network.target" ];
