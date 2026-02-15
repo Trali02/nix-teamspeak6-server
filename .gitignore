@@ -8,3 +8,5 @@ $HOME/.local/share/teamspeak6-server/logs/tsserver_2026-02-15__02_01_49.702105_0
 logs
 $/{XDG_DATA_HOME:-$HOME/.local/share}
 result
+tsserver.sqlitedb-shm
+tsserver.sqlitedb-wal

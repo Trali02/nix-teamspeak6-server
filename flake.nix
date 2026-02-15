@@ -35,7 +35,7 @@
       default = {
         type = "app";
         program =
-          "${self.packages.${pkgs.system}.teamspeak6-server}/bin/tsserver";
+          "${self.packages.${pkgs.system}.teamspeak6-server}/bin/teamspeak6-server";
       };
     });
 
