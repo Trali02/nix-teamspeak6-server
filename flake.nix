@@ -107,7 +107,7 @@
           after = [ "network.target" ];
 
           environment = {
-            TSSERVER_LICENSE_ACCEPTED = builtins.toString cfg.acceptLicense;
+            TSSERVER_LICENSE_ACCEPTED = (if cfg.acceptLicense then "accept" else ""); 
             TSSERVER_DEFAULT_PORT = builtins.toString cfg.voicePort;
             TSSERVER_DATABASE_SQL_PATH = "${cfg.package}/share/teamspeak6-server/sql";
             TSSERVER_QUERY_HTTP_PORT = builtins.toString cfg.queryPort;
