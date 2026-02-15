@@ -127,6 +127,9 @@
             Restart = "always";
             RestartSec = 5;
 
+            StandardOutput = "journal";
+            StandardError = "journal";
+
             # Hardening
             ProtectSystem = "strict";
             ProtectHome = true;
