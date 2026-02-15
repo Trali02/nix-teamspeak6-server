@@ -66,8 +66,8 @@
         };
 
         ip = lib.mkOption {
-          type = lib.types.ipv4;
-          default = 127.0.0.1;
+          type = lib.types.str;
+          default = "127.0.0.1";
         };
 
         voicePort = lib.mkOption {
